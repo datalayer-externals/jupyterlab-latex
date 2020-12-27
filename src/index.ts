@@ -9,19 +9,14 @@ import {
 } from '@jupyterlab/application';
 
 import {
-  IInstanceTracker,
-  InstanceTracker,
+  IWidgetTracker,
+  WidgetTracker,
   showErrorMessage
 } from '@jupyterlab/apputils';
 
 import { CodeEditor } from '@jupyterlab/codeeditor';
 
-import {
-  IStateDB,
-  PathExt,
-  ISettingRegistry,
-  URLExt
-} from '@jupyterlab/coreutils';
+import { PathExt, URLExt } from '@jupyterlab/coreutils';
 
 import { IDocumentManager } from '@jupyterlab/docmanager';
 
@@ -31,9 +26,13 @@ import { FileEditor, IEditorTracker } from '@jupyterlab/fileeditor';
 
 import { ServerConnection } from '@jupyterlab/services';
 
-import { ReadonlyJSONObject, Token } from '@phosphor/coreutils';
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
-import { DisposableSet } from '@phosphor/disposable';
+import { IStateDB } from '@jupyterlab/statedb';
+
+import { ReadonlyJSONObject, Token } from '@lumino/coreutils';
+
+import { DisposableSet } from '@lumino/disposable';
 
 import { ErrorPanel } from './error';
 
@@ -45,7 +44,7 @@ import '../style/index.css';
  * A class that tracks editor widgets.
  */
 export interface IPDFJSTracker
-  extends IInstanceTracker<IDocumentWidget<PDFJSViewer>> {}
+  extends IWidgetTracker<IDocumentWidget<PDFJSViewer>> {}
 
 /* tslint:disable */
 /**
@@ -600,7 +599,7 @@ function activatePDFJS(
     fileTypes: FILE_TYPES,
     readOnly: true
   });
-  const tracker = new InstanceTracker<IDocumentWidget<PDFJSViewer>>({
+  const tracker = new WidgetTracker<IDocumentWidget<PDFJSViewer>>({
     namespace
   });
 
